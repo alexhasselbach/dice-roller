@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dice Roller</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            padding: 8px;
+            font-size: 16px;
+            width: 80px;
+        }
+        button {
+            padding: 8px 16px;
+            font-size: 16px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #details {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Dice Roller</h1>
+
+<input type="number" id="diceCount" min="1" placeholder="Dice #">
+<button onclick="rollDice()" type="submit">Roll</button>
+
+<div id="result"></div>
+<div id="details"></div>
+
+<script>
+function convertRoll(roll) {
+    if (roll === 1) return -1;
+    if (roll === 2 || roll === 3) return 0;
+    if (roll === 4 || roll === 5) return 1;
+    if (roll === 6) return 2;
+}
+
+function rollDice() {
+    const count = parseInt(document.getElementById("diceCount").value);
+    if (isNaN(count) || count < 1) {
+        alert("Please enter a valid positive integer.");
+        return;
+    }
+
+    let total = 0;
+    let rolls = [];
+
+    for (let i = 0; i < count; i++) {
+        const roll = Math.floor(Math.random() * 6) + 1;
+        const value = convertRoll(roll);
+        rolls.push(`${roll}(${value})`);
+        total += value;
+    }
+
+    document.getElementById("result").innerText = `Total: ${total}`;
+    document.getElementById("details").innerText = `Rolls: ${rolls.join(", ")}`;
+}
+</script>
+
+</body>
+</html>
