@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <title>Dice Roller</title>
     <style>
+        h1 {
+            color:#d7bc1a
+        }
+        h2 {
+            color:#f1274c;
+        }
+        
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -20,12 +27,13 @@
             padding: 8px 16px;
             font-size: 16px;
         }
-        #result {
+        .result {
             margin-top: 20px;
             font-size: 20px;
             font-weight: bold;
+            color: #93c079;
         }
-        #details {
+        .details {
             margin-top: 10px;
             font-size: 14px;
         }
@@ -45,26 +53,31 @@
 
 <h1>Dice Roller</h1>
 
+<!-- Create a container for the two sections: Hotness and Car. Each section will have its own input, button, and result display. -->
 <div class="roller-container">
+    <!-- Keep each section as the same class to maintain consistent styling -->
   <div class="roller-section">
     <h2>Hotness</h2>
+    <!-- Use ids to differentiate the different fields, and make "hotness" and "car" arguments to the rollDice function. That way, all the math stays in a single function.-->
     <input type="number" id="diceCountHotness" min="1" placeholder="Dice #">
     <button onclick="rollDice('hotness')" type="submit">Roll</button>
-    <div id="resultHotness"></div>
-    <div id="detailsHotness"></div>
+    <!-- Create placeholder divs for the results to fill later-->
+    <div id="resultHotness" class="result"></div>
+    <div id="detailsHotness" class="details"></div>
   </div>
 
   <div class="roller-section">
     <h2>Car</h2>
     <input type="number" id="diceCountCar" min="1" placeholder="Dice #">
     <button onclick="rollDice('car')" type="submit">Roll</button>
-    <div id="resultCar"></div>
-    <div id="detailsCar"></div>
+    <div id="resultCar" class="result"></div>
+    <div id="detailsCar" class="details"></div>
   </div>
 </div>
 
 <script>
 function convertRoll(roll) {
+    // Convert the roll to the appropriate value based on the rules.
     if (roll === 1) return -1;
     if (roll === 2 || roll === 3) return 0;
     if (roll === 4 || roll === 5) return 1;
@@ -72,10 +85,12 @@ function convertRoll(roll) {
 }
 
 function rollDice(type) {
+    // Use in-line if statements to determine which fields to use based on the type argument.
     const diceCountId = type === 'hotness' ? 'diceCountHotness' : 'diceCountCar';
     const resultId = type === 'hotness' ? 'resultHotness' : 'resultCar';
     const detailsId = type === 'hotness' ? 'detailsHotness' : 'detailsCar';
     
+    // Get the count of dice from the input field by Element ID.
     const count = parseInt(document.getElementById(diceCountId).value);
     if (isNaN(count) || count < 1) {
         alert("Please enter a valid positive integer.");
@@ -85,6 +100,7 @@ function rollDice(type) {
     let total = 0;
     let rolls = [];
 
+    // For loop to do the rolls.
     for (let i = 0; i < count; i++) {
         const roll = Math.floor(Math.random() * 6) + 1;
         const value = convertRoll(roll);
@@ -92,6 +108,7 @@ function rollDice(type) {
         total += value;
     }
 
+    // Update those empty divs with the results. Show the total and the details of each roll.
     document.getElementById(resultId).innerText = `Total: ${total}`;
     document.getElementById(detailsId).innerText = `Rolls: ${rolls.join(", ")}`;
 }
