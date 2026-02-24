@@ -47,6 +47,12 @@
             flex: 1;
             max-width: 300px;
         }
+        /* The @media tag is used to make the layout responsive. When the screen width is 768px or less, the sections will stack vertically instead of side by side. */
+        @media (max-width: 768px) {
+            .roller-container {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
@@ -61,7 +67,7 @@
     <!-- Use ids to differentiate the different fields, and make "hotness" and "car" arguments to the rollDice function. That way, all the math stays in a single function.-->
     <input type="number" id="diceCountHotness" min="1" placeholder="Dice #">
     <button onclick="rollDice('hotness')" type="submit">Roll</button>
-    <!-- Create placeholder divs for the results to fill later-->
+    <!-- Create placeholder divs for the results to fill later.-->
     <div id="resultHotness" class="result"></div>
     <div id="detailsHotness" class="details"></div>
   </div>
